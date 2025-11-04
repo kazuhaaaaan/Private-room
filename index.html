@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Private Server</title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'bg-900': '#0b0b14',
+            'panel': '#11101a',
+            'neon': '#7B61FF'
+          },
+          boxShadow: {
+            'neon-md': '0 8px 30px rgba(123,97,255,0.12)'
+          }
+        }
+      }
+    }
+  </script>
+
+    <!--CSS-->
+   <link rel="stylesheet" href="assets/css/style.css">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+</head>
+
+<body class="bg-bg-900 text-gray-200 min-h-screen relative overflow-x-hidden">
+
+  <!-- Aurora Canvas -->
+  <canvas id="aurora-bg" class="fixed top-0 left-0 w-full h-full z-0"></canvas>
+  <div class="center-glow"></div>
+
+  <!-- NAVBAR -->
+  <nav id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-500">
+    <div class="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center py-4">
+      <!-- Logo -->
+      <div class="flex items-center gap-4">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#5b45ff] to-[#b089ff] flex items-center justify-center shadow-neon-md">
+          <span class="font-semibold">N</span>
+        </div>
+        <div class="ml-1">
+          <div class="text-sm font-semibold neon-text">Nouva</div>
+          <div class="text-xs text-gray-400">virtual room</div>
+        </div>
+      </div>
+
+      <!-- Menu -->
+      <div class="hidden md:flex items-center gap-6 text-sm text-gray-300">
+        <a href="#music" class="hover:text-neon transition">Music</a>
+        <a href="#thought" class="hover:text-neon transition">Thoughts</a>
+        <a href="#gallery" class="hover:text-neon transition">Gallery</a>
+      </div>
+
+      <!-- Buttons -->
+      <div class="flex items-center gap-3">
+        <button id="toggle-sound" class="hidden md:inline-flex px-3 py-2 rounded-md bg-[#14121a] hover:bg-[#191724] text-xs">Ambient</button>
+        <button id="theme-toggle" class="px-3 py-2 rounded-md bg-gradient-to-r from-[#6f54ff] to-[#a58cff] text-xs">Glow</button>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button id="menu-btn" class="md:hidden text-white focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <ul id="nav-links" class="hidden md:hidden flex-col text-center text-white text-sm bg-[#0B0B14]/95 backdrop-blur-lg w-full absolute top-16 left-0 p-6 rounded-b-2xl shadow-lg">
+      <li class="py-2"><a href="#music" class="hover:text-purple-400">Music</a></li>
+      <li class="py-2"><a href="#thought" class="hover:text-purple-400">Thoughts</a></li>
+      <li class="py-2"><a href="#gallery" class="hover:text-purple-400">Gallery</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <header class="min-h-screen flex items-center justify-center text-center px-6 z-10 relative">
+    <div class="max-w-3xl">
+      <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight neon-text leading-tight">
+        Think better <span class="text-neon">in your room</span>
+      </h1>
+      <p class="mt-6 text-gray-400 max-w-2xl mx-auto">
+        A private space to drop thoughts, vibe to music, and keep your head level. Built for quiet reflection and small bursts of creativity.
+      </p>
+
+      <div class="mt-10 flex items-center justify-center gap-4">
+        <a href="#music" class="px-5 py-3 rounded-full bg-gradient-to-r from-[#6f54ff] to-[#9b7cff] text-sm font-medium shadow-neon-md">
+          Open Music Corner
+        </a>
+        <a href="#thought" class="px-5 py-3 rounded-full border border-gray-800 text-sm">
+          Leave a thought
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- MUSIC -->
+  <section id="music" class="py-20 px-6 z-10 relative">
+    <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+      <div class="p-6 panel-glow relative bg-panel rounded-2xl shadow-neon-md">
+        <h2 class="text-2xl font-semibold mb-3 neon-text">Music Corner</h2>
+        <p class="text-gray-400 text-sm mb-5">Plug in a playlist and let the background do half the work.</p>
+        <div class="w-full rounded-lg overflow-hidden bg-black">
+          <iframe src="https://open.spotify.com/embed/playlist/4JMcdhvxuAf7arcV3Ewdjd?utm_source=generator" width="100%" height="380" frameborder="0" allow="encrypted-media; clipboard-write; autoplay"></iframe>
+        </div>
+      </div>
+
+      <div class="p-6 bg-panel rounded-2xl shadow-neon-md">
+        <h3 class="text-lg font-semibold neon-text">Ambient</h3>
+        <p class="text-gray-400 text-sm mb-4">Toggle ambient background sounds to make the space feel alive.</p>
+        <div class="flex gap-3">
+          <button data-ambient="space" class="ambient-btn px-3 py-2 rounded-md bg-[#14121a] text-sm">Space</button>
+          <button data-ambient="lofi" class="ambient-btn px-3 py-2 rounded-md bg-[#14121a] text-sm">Lo-fi</button>
+          <button data-ambient="stop" class="ambient-btn px-3 py-2 rounded-md bg-[#14121a] text-sm">Off</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THOUGHT WALL -->
+  <section id="thought" class="py-20 px-6 z-10 relative">
+    <div class="max-w-3xl mx-auto">
+      <div class="bg-panel rounded-2xl p-6 shadow-neon-md">
+        <h2 class="text-2xl font-semibold neon-text">Thought Wall</h2>
+        <textarea id="thought-input" rows="6" class="mt-4 w-full bg-[#0c0b10] p-4 rounded-lg outline-none placeholder-gray-500" placeholder="Drop a thought. No one is reading unless you want them to."></textarea>
+        <div class="mt-4 flex items-center gap-3">
+          <button id="save-thought" class="px-4 py-2 rounded-md bg-gradient-to-r from-[#6f54ff] to-[#9b7cff] text-sm">Save</button>
+          <button id="clear-thought" class="px-4 py-2 rounded-md bg-[#191724] text-sm">Clear</button>
+        </div>
+        <div id="thought-list" class="mt-6 grid gap-3"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DAILY TASKS -->
+<section id="tasks" class="py-20 px-6 z-10 relative">
+  <div class="max-w-3xl mx-auto">
+    <div class="bg-panel rounded-2xl p-6 shadow-neon-md">
+      <h2 class="text-2xl font-semibold neon-text">Today's Tasks</h2>
+      <p class="text-gray-400 text-sm mb-4">Write what you plan to do today and check them off as you finish.</p>
+      
+      <div class="flex gap-3 mb-4">
+        <input id="task-input" type="text" placeholder="Add a new task..." class="flex-grow bg-[#0c0b10] p-3 rounded-md outline-none text-sm placeholder-gray-500">
+        <button id="add-task" class="px-4 py-2 rounded-md bg-gradient-to-r from-[#6f54ff] to-[#9b7cff] text-sm">Add</button>
+      </div>
+
+      <ul id="task-list" class="space-y-3"></ul>
+    </div>
+  </div>
+</section>
+
+
+  <!-- GALLERY -->
+<section id="gallery" class="py-20 px-6 z-10 relative">
+  <div class="max-w-5xl mx-auto">
+    <h2 class="text-2xl font-semibold neon-text mb-6">Gallery</h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <img src="images/foto1.jpg" alt="Image 1" class="h-40 w-full object-cover rounded-lg bg-gradient-to-br from-[#201a3a] to-[#11101a]">
+      <img src="images/foto2.jpg" alt="Image 2" class="h-40 w-full object-cover rounded-lg bg-gradient-to-br from-[#201a3a] to-[#11101a]">
+      <img src="images/foto3.jpg" alt="Image 3" class="h-40 w-full object-cover rounded-lg bg-gradient-to-br from-[#201a3a] to-[#11101a]">
+      <img src="images/foto4.jpg" alt="Image 4" class="h-40 w-full object-cover rounded-lg bg-gradient-to-br from-[#201a3a] to-[#11101a]">
+    </div>
+  </div>
+</section>
+
+  
+  <footer class="py-10 text-center text-sm text-gray-400">
+    Built by Nouva — a private space to think. Code is free to tweak.
+  </footer>
+
+<!-- Custom JS -->
+  <script src="assets/js/main.js"></script> 
+</body>
+</html>
