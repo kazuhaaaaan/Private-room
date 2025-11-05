@@ -1,3 +1,62 @@
+
+// Thought Wall logic
+const thoughtInput = document.getElementById("thought-input");
+const saveThoughtBtn = document.getElementById("save-thought");
+const clearThoughtBtn = document.getElementById("clear-thought");
+const thoughtList = document.getElementById("thought-list");
+
+// Ambil data yang sudah disimpan di localStorage
+let thoughts = JSON.parse(localStorage.getItem("thoughts")) || [];
+
+// Fungsi render daftar pikiran
+function renderThoughts() {
+  thoughtList.innerHTML = "";
+  thoughts.forEach((thought, index) => {
+    const div = document.createElement("div");
+    div.className = "p-3 bg-[#0c0b10] rounded-md flex justify-between items-start";
+    div.innerHTML = `
+      <p class="text-sm text-gray-300 whitespace-pre-line">${thought}</p>
+      <button class="text-xs text-gray-500 hover:text-red-400 ml-4" data-index="${index}">Delete</button>
+    `;
+    thoughtList.appendChild(div);
+  });
+}
+
+// Simpan ke localStorage
+function saveThought() {
+  const text = thoughtInput.value.trim();
+  if (text !== "") {
+    thoughts.push(text);
+    localStorage.setItem("thoughts", JSON.stringify(thoughts));
+    thoughtInput.value = "";
+    renderThoughts();
+  }
+}
+
+// Hapus semua pikiran
+function clearThoughts() {
+  localStorage.removeItem("thoughts");
+  thoughts = [];
+  renderThoughts();
+}
+
+// Hapus salah satu pikiran
+thoughtList.addEventListener("click", (e) => {
+  if (e.target.tagName === "BUTTON") {
+    const index = e.target.getAttribute("data-index");
+    thoughts.splice(index, 1);
+    localStorage.setItem("thoughts", JSON.stringify(thoughts));
+    renderThoughts();
+  }
+});
+
+// Event listeners
+saveThoughtBtn.addEventListener("click", saveThought);
+clearThoughtBtn.addEventListener("click", clearThoughts);
+
+// Render awal
+renderThoughts();
+
 // === NAVBAR SCROLL EFFECT & MENU ===
   const navbar = document.getElementById('navbar');
   const menuBtn = document.getElementById('menu-btn');
